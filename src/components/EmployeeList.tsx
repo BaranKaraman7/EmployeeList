@@ -22,7 +22,7 @@ const EmployeeList = () => {
     { field: 'workPosition', width: 200, sortable : true},
     {
       field: 'dateOfBirth',
-      width: 200, 
+      width: 200,
       sortable : true,
       cellRenderer: (params: ICellRendererParams) => {
         const date: Date = params.value;
