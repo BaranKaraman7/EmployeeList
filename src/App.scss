@@ -1,0 +1,23 @@
+.Home {
+  min-height: 100vh;
+  height: 100vh;
+  font-size: calc(10px + 2vmin);
+  background-color: #222628;
+}
+
+#grid {
+  display: block;
+  height: 90vh;
+  // width: 70vw;
+}
+
+.Button {
+  padding: 0;
+  width: 70px;
+  height: 30px;
+  margin: 0px 0px 0px 0px
+}
+
+.ag-ltr .ag-cell {
+  border-right-width: 12px !important;
+}
