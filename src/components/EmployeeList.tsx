@@ -1,5 +1,5 @@
 import { AgGridReact } from 'ag-grid-react';
-import { useState, useRef, createContext } from 'react';
+import { useState, useRef } from 'react';
 import { IEmployee } from '../interfaces/IEmployee'
 import { workPosition } from '../utils/enums/workPosition';
 import { generateDate, generateName, generateSurname, generateWorkPosition } from '../utils/utils';
@@ -10,7 +10,7 @@ import { Button, Col, DatePicker, Form, Input, Layout, Modal, Row, Select } from
 import Search from 'antd/lib/input/Search';
 import { Content, Header } from 'antd/lib/layout/layout';
 const EmployeeList = () => {
-  const [employees, setEmployees] = useState<IEmployee[]>(createNewEmployeeList(20));
+  const [employees] = useState<IEmployee[]>(createNewEmployeeList(20));
   const employee = useRef<IEmployee | null>();
   const [isEditModalOpen, setEditIsModalOpen] = useState(false);
   const [isRegModalOpen, setRegIsModalOpen] = useState(false);
@@ -18,7 +18,7 @@ const EmployeeList = () => {
   const formEditRef = useRef<any>();
   const formRegRef = useRef<any>();
   const { Option } = Select;
-  const [columnDefs, setColumnDefs] = useState([
+  const [columnDefs] = useState([
     { field: 'name', filter: true, width: 175 },
     { field: 'surname', filter: true, width: 175 },
     { field: 'workPosition', width: 200 },
