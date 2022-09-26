@@ -3,8 +3,6 @@ import { useState, useRef } from 'react';
 import { IEmployee } from '../interfaces/IEmployee'
 import { workPosition } from '../utils/enums/workPosition';
 import { generateDate, generateName, generateSurname, generateWorkPosition } from '../utils/utils';
-import 'ag-grid-community/styles/ag-grid.css';
-import 'ag-grid-community/styles/ag-theme-alpine.css';
 import { CellClickedEvent, ICellRendererParams } from 'ag-grid-community';
 import { Button, Col, DatePicker, Form, Input, Layout, Modal, Row, Select } from 'antd';
 import Search from 'antd/lib/input/Search';
@@ -19,12 +17,13 @@ const EmployeeList = () => {
   const formRegRef = useRef<any>();
   const { Option } = Select;
   const [columnDefs] = useState([
-    { field: 'name', filter: true, width: 175 },
-    { field: 'surname', filter: true, width: 175 },
-    { field: 'workPosition', width: 200 },
+    { field: 'name', filter: true, width: 175 , sortable : true},
+    { field: 'surname', filter: true, width: 175 , sortable: true},
+    { field: 'workPosition', width: 200, sortable : true},
     {
       field: 'dateOfBirth',
-      width: 200,
+      width: 200, 
+      sortable : true,
       cellRenderer: (params: ICellRendererParams) => {
         const date: Date = params.value;
         const value: string = (date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear());
