@@ -11,15 +11,24 @@ const EmployeeList = () => {
   const [employees] = useState<IEmployee[]>(createNewEmployeeList(15));
   const [isEditModalOpen, setEditIsModalOpen] = useState(false);
   const [isRegModalOpen, setRegIsModalOpen] = useState(false);
-  const [gridApi, setGridApi]= useState<GridApi>();
+  const [gridApi, setGridApi] = useState<GridApi>();
   const employee = useRef<IEmployee>();
-  // const gridRef = useRef<any>();
   const formEditRef = useRef<any>();
   const formRegRef = useRef<any>();
   const { Option } = Select;
 
   const onGridReady = (params: any) => {
     setGridApi(params.api);
+  }
+  function onEditButtonClick(params: CellClickedEvent) {
+    employee.current = params.data;
+    if (formEditRef.current)
+      formEditRef.current.setFieldsValue({
+        'name': employee.current?.name,
+        'surname': employee.current?.surname,
+        'workPosition': employee.current?.workPosition,
+      })
+    setEditIsModalOpen(true);
   }
   const columnDefs: ColDef[] = [
     { field: 'name', filter: true, width: 175, sortable: true },
@@ -41,16 +50,7 @@ const EmployeeList = () => {
       cellRenderer: () => {
         return <Button className='Button' type='primary' ghost>Edit</Button>
       },
-      onCellClicked: (params: CellClickedEvent) => {
-        employee.current = params.data;
-        if (formEditRef.current)
-          formEditRef.current.setFieldsValue({
-            'name': employee.current?.name,
-            'surname': employee.current?.surname,
-            'workPosition': employee.current?.workPosition,
-          })
-        showEditModal();
-      }
+      onCellClicked: (params: CellClickedEvent) => onEditButtonClick(params)
     },
     {
       field: '',
@@ -60,7 +60,6 @@ const EmployeeList = () => {
       },
       onCellClicked: (params: CellClickedEvent) => {
         const selectedRows = params.api.getSelectedRows()
-        console.log(params);
         params.api.applyTransaction({ remove: selectedRows });
       }
     },
@@ -69,16 +68,10 @@ const EmployeeList = () => {
     rowData: employees,
     rowSelection: 'single',
     columnDefs: columnDefs,
-    
   }
-  
   function onFilterTextBoxChange(value: string) {
     gridApi?.setQuickFilter(value);
   }
-  const showEditModal = () => {
-    setEditIsModalOpen(true);
-  };
-
   const handleEditOk = async () => {
     try {
       const fieldValue = await formEditRef.current.validateFields()
@@ -115,7 +108,7 @@ const EmployeeList = () => {
   const showRegModal = () => {
     setRegIsModalOpen(true);
   };
-  function getID(){
+  function getID() {
     return gridApi?.getDisplayedRowAtIndex(gridApi?.getDisplayedRowCount() - 1)?.data.id + 1
   }
   const handleRegOk = async () => {
@@ -226,11 +219,11 @@ const EmployeeList = () => {
           <div id='grid' className="ag-theme-alpine-dark" >
             <AgGridReact
               gridOptions={gridOptions}
-              onGridReady= {onGridReady}
+              onGridReady={onGridReady}
             />
           </div>
         </Content>
-        <Footer className='footer'/>
+        <Footer className='footer' />
       </Layout>
     </div>
   )
