@@ -1,3 +1,22 @@
+# Example of Employee List with adding new, editing an existing one and deleting one.
+
+React application using Jest, `react-testing-library`, antd, ag-grid. 
+
+## Installation
+
+```
+yarn install
+```
+
+## Usage
+
+```
+yarn start # To use web application
+yarn test # To run tests
+```
+
+Check out `package.json` scripts for more.
+
 ## Available Scripts
 
 In the project directory, you can run:
