@@ -1,5 +1,9 @@
 import { generateDate, generateName, generateSurname, generateWorkPosition } from "../utils/utils";
 import { workPosition } from "../utils/enums/workPosition";
+import { render } from "@testing-library/react";
+import { AgGridReact } from "ag-grid-react";
+import { getColDef } from '../components/columnDef';
+import { createNewEmployeeList } from '../utils/utils';
 //I used antd it has some issues testing 
 // with jest so can't do render test
 
@@ -28,3 +32,14 @@ test('Utils create employee birthday correctly', () => {
     const employeeBirthDay = generateDate();
     expect(employeeBirthDay.types).toEqual(myEmployeeTemplate.birthDay.types)
 })
+test('Grid rendered correctly without edit button',()=>{
+    render(<AgGridReact
+    gridOptions={{
+    rowData: createNewEmployeeList(5),
+    rowSelection: 'single',
+    columnDefs: getColDef(()=>{})
+        }
+    }
+    ></AgGridReact>)
+    }
+)

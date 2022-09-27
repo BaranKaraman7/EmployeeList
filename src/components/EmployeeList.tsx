@@ -3,10 +3,11 @@ import { useState, useRef } from 'react';
 import { IEmployee } from '../interfaces/IEmployee'
 import { workPosition } from '../utils/enums/workPosition';
 import { createNewEmployeeList } from '../utils/utils';
-import { CellClickedEvent, ColDef, GridApi, GridOptions, ICellRendererParams } from 'ag-grid-community';
+import { CellClickedEvent, GridApi, GridOptions } from 'ag-grid-community';
 import { Button, Col, DatePicker, Form, Input, Layout, Modal, Row, Select } from 'antd';
 import Search from 'antd/lib/input/Search';
 import { Content, Footer, Header } from 'antd/lib/layout/layout';
+import { getColDef } from './columnDef';
 const EmployeeList = () => {
   const [employees] = useState<IEmployee[]>(createNewEmployeeList(15));
   const [isEditModalOpen, setEditIsModalOpen] = useState(false);
@@ -30,44 +31,10 @@ const EmployeeList = () => {
       })
     setEditIsModalOpen(true);
   }
-  const columnDefs: ColDef[] = [
-    { field: 'name', filter: true, width: 175, sortable: true },
-    { field: 'surname', filter: true, width: 175, sortable: true },
-    { field: 'workPosition', width: 200, sortable: true },
-    {
-      field: 'dateOfBirth',
-      width: 200,
-      sortable: true,
-      cellRenderer: (params: ICellRendererParams) => {
-        const date: Date = params.value;
-        const value: string = (date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear());
-        return value;
-      },
-    },
-    {
-      field: '',
-      width: 100,
-      cellRenderer: () => {
-        return <Button className='Button' type='primary' ghost>Edit</Button>
-      },
-      onCellClicked: (params: CellClickedEvent) => onEditButtonClick(params)
-    },
-    {
-      field: '',
-      width: 100,
-      cellRenderer: () => {
-        return <Button className='Button' type='primary' danger ghost>Fire</Button>
-      },
-      onCellClicked: (params: CellClickedEvent) => {
-        const selectedRows = params.api.getSelectedRows()
-        params.api.applyTransaction({ remove: selectedRows });
-      }
-    },
-  ];
   const gridOptions: GridOptions = {
     rowData: employees,
     rowSelection: 'single',
-    columnDefs: columnDefs,
+    columnDefs: getColDef(onEditButtonClick),
   }
   function onFilterTextBoxChange(value: string) {
     gridApi?.setQuickFilter(value);
