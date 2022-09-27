@@ -5,7 +5,7 @@ React application using Jest, react-testing-library, antd, ag-grid and sass.
 ## Installation
 
 ```
-yarn install
+yarn install or yarn
 ```
 
 ## Usage
