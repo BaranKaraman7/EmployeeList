@@ -1,0 +1,30 @@
+body {
+  min-height: 100vh !important;
+  height: 100vh !important;
+  font-size: calc(10px + 2vmin) !important;
+  background-color: #222628 !important;
+  overflow: hidden;
+}
+
+#grid {
+  display: block;
+  height: 90vh;
+  padding: 0px 20px 0px 20px;
+}
+.content{
+  font-size: calc(10px + 2vmin);
+  background-color: #222628;
+}
+.footer{
+  background: #001529 !important;
+}
+.Button {
+  padding: 0;
+  width: 70px;
+  height: 30px;
+  margin: 0px 0px 0px 0px
+}
+
+.ag-ltr .ag-cell {
+  border-right-width: 12px !important;
+}
