@@ -1,6 +1,6 @@
 # Example of Employee List with adding new, editing an existing one and deleting one.
 
-React application using Jest, react-testing-library, antd, ag-grid. 
+React application using Jest, react-testing-library, antd, ag-grid and sass. 
 
 ## Installation
 
